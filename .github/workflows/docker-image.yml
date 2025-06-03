@@ -41,5 +41,5 @@ jobs:
           build-args: |
             PHP_VERSION=${{ matrix.php_version }}
           tags: |
-            ghcr.io/${{ github.repository_owner }}/pipeline-php:${{ matrix.php_version }}
-            ghcr.io/${{ github.repository_owner }}/pipeline-php:latest 
+            ghcr.io/${{ github.repository_owner.toLowerCase() }}/pipeline-php:${{ matrix.php_version }}
+            ghcr.io/${{ github.repository_owner.toLowerCase() }}/pipeline-php:latest 
