@@ -18,6 +18,7 @@ docker run --rm -it -v $(pwd):/var/www/html enabel/pipeline-php:8.4 bash
 - zip
 - gd
 - redis
+- xsl
 - xdebug
 - pcov
 
