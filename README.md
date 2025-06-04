@@ -1,15 +1,15 @@
-# Docker PHP 8.4 pour Symfony
+# Docker PHP for Symfony
 
-Image Docker optimisée pour les projets Symfony avec PHP 8.4.
+Optimized Docker image for pipeline of Symfony projects with PHP.
 
-## Utilisation
+## Usage
 
 ```bash
-docker build -t symfony-php:8.4 .
-docker run --rm -it -v $(pwd):/var/www/html symfony-php:8.4 bash
+docker build -t enabel/pipeline-php:8.4 .
+docker run --rm -it -v $(pwd):/var/www/html enabel/pipeline-php:8.4 bash
 ```
 
-## Extensions installées
+## Installed extensions
 
 - intl
 - pdo
@@ -17,15 +17,22 @@ docker run --rm -it -v $(pwd):/var/www/html symfony-php:8.4 bash
 - opcache
 - zip
 - gd
+- redis
+- xdebug
+- pcov
 
 ## Composer
 
-Composer est déjà inclus dans l’image.
+Composer is already included in the image.
 
-## Pour Azure DevOps
+## Symfony CLI
 
-Utilisez cette image dans vos pipelines pour builder, tester et déployer vos projets Symfony.
+Symfony CLI is pre-installed for easier project management.
 
-## Licence
+## For Azure DevOps
+
+Use this image in your pipelines to build, test, and deploy your Symfony projects.
+
+## License
 
 MIT
