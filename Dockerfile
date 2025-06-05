@@ -22,7 +22,7 @@ RUN apt-get clean  \
 
 # Install PHP extensions using mlocati/php-extension-installer
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
-RUN install-php-extensions @composer apcu curl gd intl mbstring opcache pcov pdo pdo_mysql redis xml xdebug xsl zip
+RUN install-php-extensions @composer apcu bcmath curl gd intl mbstring opcache pcov pdo pdo_mysql redis xml xdebug xsl zip
 
 # Configure directories and permissions
 RUN mkdir -p /var/www/html \
