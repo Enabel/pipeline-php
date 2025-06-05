@@ -5,10 +5,10 @@ FROM php:${PHP_VERSION}-cli
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Install dependencies
-RUN apt-get clean && \
-    rm -rf /var/lib/apt/lists/* && \
-    apt-get update --fix-missing && \
-    apt-get install -y --no-install-recommends \
+RUN apt-get clean  \
+ && rm -rf /var/lib/apt/lists/*  \
+ && apt-get update --fix-missing  \
+ && apt-get install -y --no-install-recommends \
         git \
         curl \
         ca-certificates \
@@ -16,10 +16,9 @@ RUN apt-get clean && \
         zip \
         default-mysql-client \
         netcat-traditional \
-    && apt-get autoremove -y \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
+ && apt-get autoremove -y \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Install PHP extensions using mlocati/php-extension-installer
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
@@ -32,8 +31,12 @@ RUN mkdir -p /var/www/html \
 WORKDIR /var/www/html
 
 # Install Symfony CLI
-RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | bash
-RUN apt-get update && apt-get install -y symfony-cli && rm -rf /var/lib/apt/lists/*
+RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | bash \
+ && apt-get update  \
+ && apt-get install -y symfony-cli \
+ && apt-get autoremove -y \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Configure environment variables
 ENV COMPOSER_ALLOW_SUPERUSER=1 \
@@ -43,9 +46,13 @@ ENV COMPOSER_ALLOW_SUPERUSER=1 \
 RUN echo "memory_limit=512M" > /usr/local/etc/php/conf.d/memory-limit.ini \
  && echo "date.timezone=Europe/Brussels" > /usr/local/etc/php/conf.d/timezone.ini
 
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash
-RUN apt-get install -y nodejs && rm -rf /var/lib/apt/lists/*
-RUN npm install -g corepack && \
-    corepack enable && \
-    corepack prepare yarn@stable --activate && \
-    npm cache clean --force
+# Install Node.js and Yarn
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash \
+ && apt-get install -y nodejs \
+ && apt-get autoremove -y \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+ && npm install -g corepack \
+ && corepack enable \
+ && corepack prepare yarn@stable --activate \
+ && npm cache clean --force
