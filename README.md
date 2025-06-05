@@ -34,6 +34,15 @@ Symfony CLI is pre-installed for easier project management.
 
 Use this image in your pipelines to build, test, and deploy your Symfony projects.
 
+## Base
+
+This image is based on [php:8.4-cli](https://hub.docker.com/_/php) to ensure optimal performance.
+
 ## License
 
 MIT
+
+## About
+Originally designed by [Damien Lagae][1]. If you have any questions, please contact [Damien Lagae][1].
+
+[1]: damien.lagae@enabel.be
