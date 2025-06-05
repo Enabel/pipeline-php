@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     ca-certificates \
     bash \
+    zip \
     && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions using mlocati/php-extension-installer
