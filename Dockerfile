@@ -1,14 +1,24 @@
 ARG PHP_VERSION=8.4
 FROM php:${PHP_VERSION}-cli
 
+# Avoid interactive prompts during package installation
+ENV DEBIAN_FRONTEND=noninteractive
+
 # Install dependencies
-RUN apt-get update && apt-get install -y \
-    git \
-    curl \
-    ca-certificates \
-    bash \
-    zip \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    apt-get update --fix-missing && \
+    apt-get install -y --no-install-recommends \
+        git \
+        curl \
+        ca-certificates \
+        bash \
+        zip \
+        default-mysql-client \
+    && apt-get autoremove -y \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 
 # Install PHP extensions using mlocati/php-extension-installer
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
